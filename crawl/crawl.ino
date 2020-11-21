@@ -8,8 +8,8 @@ const char UrlCrawl[] = "www.google.com";
 const char UrlPath[] = "/";
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-const int kNetworkTimeout = 30*1000;
-const int kNetworkDelay = 1000;
+const int Timeout = 30*1000;
+const int Delay = 1000;
 
 void setup()
 {
@@ -51,13 +51,11 @@ void loop()
         Serial.println(bodyLen);
         Serial.println();
         Serial.println("Body returned follows:");
-      
-        // Now we've got to the body, so we can print it out
+
         unsigned long timeoutStart = millis();
         char c;
-        // Whilst we haven't timed out & haven't reached the end of the body
         while ( (http.connected() || http.available()) &&
-               ((millis() - timeoutStart) < kNetworkTimeout) )
+               ((millis() - timeoutStart) < Timeout) )
         {
             if (http.available())
             {
@@ -68,7 +66,7 @@ void loop()
             }
             else
             {
-                delay(kNetworkDelay);
+                delay(Delay);
             }
         }
       }
